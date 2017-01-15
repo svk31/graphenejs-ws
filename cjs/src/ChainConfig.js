@@ -1,6 +1,9 @@
-let _this;
+"use strict";
 
-let ecc_config = {
+exports.__esModule = true;
+var _this = void 0;
+
+var ecc_config = {
     address_prefix: process.env.npm_config__graphene_ecc_default_address_prefix || "GPH"
 };
 
@@ -34,9 +37,13 @@ _this = {
     },
 
     /** Set a few properties for known chain IDs. */
-    setChainId: function(chain_id) {
+    setChainId: function setChainId(chain_id) {
 
-        let i, len, network, network_name, ref;
+        var i = void 0,
+            len = void 0,
+            network = void 0,
+            network_name = void 0,
+            ref = void 0;
         ref = Object.keys(_this.networks);
 
         for (i = 0, len = ref.length; i < len; i++) {
@@ -58,17 +65,16 @@ _this = {
                 return {
                     network_name: network_name,
                     network: network
-                }
+                };
             }
         }
 
         if (!_this.network_name) {
             console.log("Unknown chain id (this may be a testnet)", chain_id);
         }
-
     },
 
-    reset: function() {
+    reset: function reset() {
         _this.core_asset = "CORE";
         _this.address_prefix = "GPH";
         ecc_config.address_prefix = "GPH";
@@ -78,10 +84,13 @@ _this = {
         console.log("Chain config reset");
     },
 
-    setPrefix: function(prefix = "GPH") {
+    setPrefix: function setPrefix() {
+        var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "GPH";
+
         _this.address_prefix = prefix;
         ecc_config.address_prefix = prefix;
     }
-}
+};
 
-export default _this;
+exports.default = _this;
+module.exports = exports["default"];

@@ -2,7 +2,9 @@
 // This example shows how to iterate over all accounts in order determine
 // the holders of a particular asset, in this case OBITS
 
-var {Apis} = require("../lib");
+/* running 'npm run build' is necessary before launching the examples */
+
+var {Apis} = require("../cjs")
 // let wsString = "wss://bitshares.openledger.info/ws";
 let wsStringLocal = "ws://127.0.0.1:8090";
 

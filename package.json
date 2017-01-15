@@ -1,20 +1,21 @@
 {
   "name": "graphenejs-ws",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Pure JavaScript Bitshares/Graphene websocket interface for node.js and browsers.",
   "browser": {
     "ws": false
   },
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "BABEL_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch",
-    "clean": "rm -rf ./dist/* & rm -rf ./build/*",
+    "clean": "rm -rf ./cjs/* & rm -rf ./build/* & rm -rf ./es/*",
     "prebuild": "npm run clean",
-    "build": "babel lib --presets babel-preset-es2015 --out-dir dist",
-    "postbuild": "npm run browserify",
+    "build": "BABEL_ENV=cjs babel lib --out-dir cjs",
+    "build-es": "BABEL_ENV=es babel ./lib -d es",
+    "postbuild": "npm run browserify && npm run build-es",
     "prepublish": "npm run build",
-    "browserify": "browserify dist/src/ApiInstances.js --standalone grapheneWS -o build/graphenejs-ws.js -d",
-    "postbrowserify": "uglifyjs --compress --mangle --sequences --drop_console --mangle-props --screw-ie8 --output build/graphenejs-ws.min.js -- build/graphenejs-ws.js",
+    "browserify": "NODE_ENV=production browserify cjs/src/ApiInstances.js --standalone grapheneWS -o build/graphenejs-ws.js -d",
+    "postbrowserify": "NODE_ENV=production uglifyjs --compress --mangle --sequences --drop_console --mangle-props --screw-ie8 --output build/graphenejs-ws.min.js -- build/graphenejs-ws.js",
     "bundle": "npm run browserify && npm run minify"
   },
   "repository": {
@@ -32,15 +33,19 @@
   "engines": {
     "node": ">= 6.0.0"
   },
-  "main": "./dist/index.js",
+  "main": "cjs/index.js",
+  "jsnext:main": "es/index.js",
   "dependencies": {
     "ReconnectingWebSocket": "git+https://github.com/svk31/reconnecting-websocket",
     "ws": "^1.1.1"
   },
   "devDependencies": {
     "assert": "^1.3.0",
-    "babel-cli": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-1": "^6.16.0",
     "browserify": "^13.0.1",
     "mocha": "^2.3.4",
     "uglifyjs": "^2.4.10"
