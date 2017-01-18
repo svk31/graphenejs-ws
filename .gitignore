@@ -1,6 +1,5 @@
 .npmrc
 npm-debug.log
 node_modules
-.babelrc
 cjs
 es
