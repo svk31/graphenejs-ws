@@ -20,7 +20,7 @@ npm install graphenejs-ws
 Browser bundles are provided in /build/, for testing purposes you can access this from rawgit:
 
 ```
-<script type="text/javascript" src="https://cdn.rawgit.com/svk31/graphenejs-ws/build/graphenejs-ws.js" />
+<script type="text/javascript" src="https://cdn.rawgit.com/svk31/graphenejs-ws/master/build/graphenejs-ws.js" />
 ```
 
 A variable grapheneWS will be available in window.
